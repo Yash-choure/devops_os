@@ -26,7 +26,7 @@ jobs:
       options: --user root
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up build environment
       run: echo 'Setting up build environment for DevOps-OS'
     - name: Install Python dependencies
@@ -44,6 +44,7 @@ jobs:
         name: build-artifacts
         path: dist/
         retention-days: 1
+        if-no-files-found: warn
   test:
     needs:
     - build
@@ -53,7 +54,7 @@ jobs:
       options: --user root
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up test environment
       run: echo 'Setting up test environment for DevOps-OS'
     - name: Install Python dependencies
@@ -77,6 +78,7 @@ jobs:
         name: test-results
         path: test-reports/
         retention-days: 1
+        if-no-files-found: warn
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       with:
@@ -92,7 +94,7 @@ jobs:
       options: --user root
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up deployment environment
       run: echo 'Setting up deployment environment for DevOps-OS'
     - name: Build and Push Docker Image
