@@ -71,8 +71,9 @@ jobs:
     - name: Set up test environment
       run: echo 'Setting up test environment for DevOps-OS'
     - name: Install Python dependencies
-      run: if [ -f requirements.txt ]; then pip install -r requirements.txt pytest
-        pytest-cov; fi
+      run: |
+        python -m pip install -r requirements.txt || true
+        python -m pip install pytest pytest-cov
     - name: Run Python tests
       run: if [ -d tests ]; then python -m pytest --cov=./ --cov-report=xml; fi
     - name: Run Pylint
